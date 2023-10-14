@@ -1,16 +1,20 @@
 package com.example.demo.util;
+
 import com.example.demo.entity.Guest;
 import com.example.demo.entity.Reservation;
 import com.example.demo.entity.Room;
+import com.example.demo.entity.RoomReservation;
 import com.example.demo.repository.GuestRepository;
 import com.example.demo.repository.ReservationRepository;
 import com.example.demo.repository.RoomRepository;
 
+import com.example.demo.service.ReservationService;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.List;
 
 
 @Component
@@ -19,13 +23,16 @@ public class AppStartupEvent implements ApplicationListener<ApplicationReadyEven
     private final RoomRepository roomRepository;
     private final GuestRepository guestRepository;
     private final ReservationRepository reservationRepository;
-    private DateUtil dateUtil;
+    private final DateUtil dateUtil;
+    private final ReservationService reservationService;
 
 
-    public AppStartupEvent(RoomRepository roomRepository, GuestRepository guestRepository, ReservationRepository reservationRepository) {
+    public AppStartupEvent(RoomRepository roomRepository, GuestRepository guestRepository, ReservationRepository reservationRepository, DateUtil dateUtil, ReservationService reservationService) {
         this.roomRepository = roomRepository;
         this.guestRepository = guestRepository;
         this.reservationRepository = reservationRepository;
+        this.dateUtil = dateUtil;
+        this.reservationService = reservationService;
     }
 
     @Override
@@ -47,7 +54,9 @@ public class AppStartupEvent implements ApplicationListener<ApplicationReadyEven
             System.out.print(reservation);
         }
 
+        System.out.println("Reservation by date: ");
         Date date = this.dateUtil.createDateFromString("2022-01-01");
-
+        List<RoomReservation> roomReservationsForDate = this.reservationService.getRoomReservationsForDate(date);
+        roomReservationsForDate.forEach(System.out::println);
     }
 }
