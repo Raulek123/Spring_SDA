@@ -9,18 +9,21 @@ import java.sql.Date;
 @Table(name = "RESERVATION")
 @Data
 public class Reservation {
-
+    //CREATE TABLE RESERVATION(
+    //  RESERVATION_ID BIGSERIAL PRIMARY KEY,
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "RESERVATION_ID")
-    private long id;
-
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long reservationId;
+    //  ROOM_ID BIGINT NOT NULL,
     @Column(name = "ROOM_ID")
     private long roomId;
-
+    //  GUEST_ID BIGINT NOT NULL,
     @Column(name = "GUEST_ID")
     private long guestId;
-
+    //  RES_DATE DATE
     @Column(name = "RES_DATE")
     private Date reservationDate;
+    //);
+
 }
