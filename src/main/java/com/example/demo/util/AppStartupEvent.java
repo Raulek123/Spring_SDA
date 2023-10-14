@@ -10,6 +10,8 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 
 @Component
 public class AppStartupEvent implements ApplicationListener<ApplicationReadyEvent> {
@@ -17,6 +19,7 @@ public class AppStartupEvent implements ApplicationListener<ApplicationReadyEven
     private final RoomRepository roomRepository;
     private final GuestRepository guestRepository;
     private final ReservationRepository reservationRepository;
+    private DateUtil dateUtil;
 
 
     public AppStartupEvent(RoomRepository roomRepository, GuestRepository guestRepository, ReservationRepository reservationRepository) {
@@ -44,7 +47,7 @@ public class AppStartupEvent implements ApplicationListener<ApplicationReadyEven
             System.out.print(reservation);
         }
 
-//        Date date = this.dateUtil.createDateFromString("2022-01-01");
+        Date date = this.dateUtil.createDateFromString("2022-01-01");
 
     }
 }
