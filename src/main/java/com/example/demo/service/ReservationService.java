@@ -65,4 +65,15 @@ public class ReservationService {
         }
         return roomList;
     }
+
+    public void addGuest(Guest guest) {
+        if(guest == null){
+            throw new RuntimeException("Guest cannot be null");
+        }
+        this.guestRepository.save(guest);
+    }
+
+    public void deleteGuest(Long guestId) {
+        guestRepository.deleteById(guestId);
+    }
 }
