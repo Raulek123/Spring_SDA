@@ -1,4 +1,4 @@
-package com.example.demo.web;
+package com.example.demo.webservice;
 
 import com.example.demo.entity.Guest;
 import com.example.demo.entity.Room;
