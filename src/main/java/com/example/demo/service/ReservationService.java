@@ -1,4 +1,6 @@
 package com.example.demo.service;
+
+
 import com.example.demo.entity.Guest;
 import com.example.demo.entity.Reservation;
 import com.example.demo.entity.Room;
@@ -8,10 +10,7 @@ import com.example.demo.repository.ReservationRepository;
 import com.example.demo.repository.RoomRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ReservationService {
@@ -33,7 +32,7 @@ public class ReservationService {
         for (Room room : rooms) {
             RoomReservation roomReservation = new RoomReservation();
             roomReservation.setRoomId(room.getId());
-            roomReservation.setRoomNumber(room.getName());
+            roomReservation.setRoomName(room.getName());
             roomReservation.setRoomNumber(room.getRoomNumber());
 
             Iterable<Reservation> reservations = this.reservationRepository.
@@ -50,8 +49,20 @@ public class ReservationService {
                 roomReservations.add(roomReservation);
             }
         }
-        roomReservations.sort(Comparator.comparing(RoomReservation::getRoomNumber)
+        roomReservations.sort(Comparator.comparing(RoomReservation::getRoomName)
                 .thenComparing(RoomReservation::getRoomNumber));
         return roomReservations;
+    }
+
+    public List<Guest> getHotelGuests() {
+        return this.guestRepository.findAll();
+    }
+
+    public List<Room> getRooms() {
+        List<Room> roomList = new ArrayList<>();
+        for (Room room : this.roomRepository.findAll()) {
+            roomList.add(room);
+        }
+        return roomList;
     }
 }
